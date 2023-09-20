@@ -149,6 +149,7 @@ class LVISVis:
             if show_segms:
                 for segm in segms[idx]:
                     self.vis_mask(ax, self.coco_segm_to_poly(segm), color)
+        fig.savefig(f'./visualization/gt/{img_id}.png')
 
     def vis_result(
         self, img_id, show_boxes=False, show_segms=True, show_classes=False,
@@ -187,3 +188,4 @@ class LVISVis:
             if show_segms:
                 for segm in segms[idx]:
                     self.vis_mask(ax, self.coco_segm_to_poly(segm), color)
+        fig.savefig(f'./visualization/pred/{img_id}.png')

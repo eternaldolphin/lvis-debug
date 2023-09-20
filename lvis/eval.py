@@ -12,7 +12,7 @@ import pycocotools.mask as mask_utils
 
 
 class LVISEval:
-    def __init__(self, lvis_gt, lvis_dt, iou_type="segm"):
+    def __init__(self, lvis_gt, lvis_dt, iou_type="segm", img_ids=None):
         """Constructor for LVISEval.
         Args:
             lvis_gt (LVIS class instance, or str containing path of annotation file)
@@ -48,7 +48,10 @@ class LVISEval:
         self.results = OrderedDict()
         self.ious = {}  # ious between all gts and dts
 
-        self.params.img_ids = sorted(self.lvis_gt.get_img_ids())
+        if img_ids is not None:
+            self.params.img_ids = img_ids
+        else:
+            self.params.img_ids = sorted(self.lvis_gt.get_img_ids())
         self.params.cat_ids = sorted(self.lvis_gt.get_cat_ids())
 
     def _to_mask(self, anns, lvis):
@@ -358,8 +361,8 @@ class LVISEval:
                 tps = np.logical_and(dt_m, np.logical_not(dt_ig))
                 fps = np.logical_and(np.logical_not(dt_m), np.logical_not(dt_ig))
 
-                tp_sum = np.cumsum(tps, axis=1).astype(dtype=np.float)
-                fp_sum = np.cumsum(fps, axis=1).astype(dtype=np.float)
+                tp_sum = np.cumsum(tps, axis=1).astype(dtype=np.float64)
+                fp_sum = np.cumsum(fps, axis=1).astype(dtype=np.float64)
 
                 dt_pointers[cat_idx][area_idx] = {
                     "dt_ids": dt_ids,

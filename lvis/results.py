@@ -18,6 +18,7 @@ class LVISResults(LVIS):
         """
         if isinstance(lvis_gt, LVIS):
             self.dataset = deepcopy(lvis_gt.dataset)
+            # TODO: 改变lvis_results的dataset?
         elif isinstance(lvis_gt, str):
             self.dataset = self._load_json(lvis_gt)
         else:
@@ -69,6 +70,7 @@ class LVISResults(LVIS):
         assert set(img_ids_in_result) == (
             set(img_ids_in_result) & set(self.get_img_ids())
         ), "Results do not correspond to current LVIS set."
+        self.img_ids_in_result = list(set(img_ids_in_result))
 
     def limit_dets_per_image(self, anns, max_dets):
         img_ann = defaultdict(list)

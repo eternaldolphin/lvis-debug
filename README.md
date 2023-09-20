@@ -1,3 +1,8 @@
+# LVIS-DEBUG
+improvement for simplicity of debug 
+1. fix a bug in eval.py: dtype=np.float -> np.float64(for numpy>1.20.0)
+2. only eval part of dataset to save time with img_ids
+
 # <img src="images/lvis_icon.svg" height="40"> LVIS API
 
 
